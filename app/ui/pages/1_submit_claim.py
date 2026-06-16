@@ -36,7 +36,8 @@ def get_policy_repo() -> PolicyRepository:
 policy_repo = get_policy_repo()
 policy = policy_repo.policy
 
-member_options = {f"{m.member_id} — {m.name} ({m.relationship})": m.member_id for m in policy.members}
+member_options = {"— Select member —": None, **{f"{m.member_id} — {m.name} ({m.relationship})": m.member_id for m in policy.members}}
+category_options = ["— Select category —"] + [c.value for c in ClaimCategory]
 hospital_options = ["(none)"] + policy.network_hospitals + ["Other (not in network)"]
 
 with st.form("claim_form"):
@@ -46,9 +47,9 @@ with st.form("claim_form"):
         member_label = st.selectbox("Member", list(member_options.keys()))
         member_id = member_options[member_label]
     with col2:
-        claim_category = st.selectbox("Claim category", [c.value for c in ClaimCategory])
+        claim_category = st.selectbox("Claim category", category_options)
     with col3:
-        claimed_amount = st.number_input("Claimed amount (₹)", min_value=0.0, step=100.0, value=1500.0)
+        claimed_amount = st.number_input("Claimed amount (₹)", min_value=0, step=1, value=0)
 
     col4, col5, col6 = st.columns(3)
     with col4:
@@ -82,6 +83,10 @@ with st.form("claim_form"):
 
 if submitted:
     missing: list[str] = []
+    if member_id is None:
+        missing.append("Please select a member.")
+    if claim_category == "— Select category —":
+        missing.append("Please select a claim category.")
     if claimed_amount <= 0:
         missing.append("Claimed amount must be greater than ₹0.")
     if all(u is None for u in uploads):
