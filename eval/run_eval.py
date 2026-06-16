@@ -23,7 +23,7 @@ from eval.eval_helpers import CheckResult, evaluate_case, format_trace
 _log = get_logger(__name__)
 
 ROOT = Path(__file__).resolve().parents[1]
-TEST_CASES_PATH = ROOT / "ass_detail" / "test_cases.json"
+TEST_CASES_PATH = ROOT / "eval" / "test_cases.json"
 REPORT_PATH = ROOT / "docs" / "EVAL_REPORT.md"
 
 

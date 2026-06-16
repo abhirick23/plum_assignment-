@@ -13,13 +13,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="session")
 def policy() -> PolicyTerms:
-    with open(ROOT / "ass_detail" / "policy_terms.json", "r", encoding="utf-8") as f:
+    with open(ROOT / "data" / "policy_terms.json", "r", encoding="utf-8") as f:
         return PolicyTerms.model_validate(json.load(f))
 
 
 @pytest.fixture(scope="session")
 def test_cases() -> list[dict]:
-    with open(ROOT / "ass_detail" / "test_cases.json", "r", encoding="utf-8") as f:
+    with open(ROOT / "eval" / "test_cases.json", "r", encoding="utf-8") as f:
         return json.load(f)["test_cases"]
 
 

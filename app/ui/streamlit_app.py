@@ -42,7 +42,7 @@ def get_orchestrator() -> Orchestrator:
 
 @st.cache_data
 def load_test_cases() -> list[dict]:
-    with open(ROOT / "ass_detail" / "test_cases.json", encoding="utf-8") as f:
+    with open(ROOT / "eval" / "test_cases.json", encoding="utf-8") as f:
         return json.load(f)["test_cases"]
 
 

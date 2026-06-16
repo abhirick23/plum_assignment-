@@ -12,7 +12,7 @@ from pathlib import Path
 from app.core.exceptions import MemberNotFoundError, PolicyConfigError
 from app.models.policy import MemberRecord, PolicyTerms
 
-DEFAULT_POLICY_PATH = Path(__file__).resolve().parents[2] / "ass_detail" / "policy_terms.json"
+DEFAULT_POLICY_PATH = Path(__file__).resolve().parents[2] / "data" / "policy_terms.json"
 
 
 class PolicyRepository:

@@ -81,6 +81,17 @@ with st.form("claim_form"):
     submitted = st.form_submit_button("Submit claim", type="primary")
 
 if submitted:
+    missing: list[str] = []
+    if claimed_amount <= 0:
+        missing.append("Claimed amount must be greater than ₹0.")
+    if all(u is None for u in uploads):
+        missing.append("Please upload at least one document before submitting.")
+
+    if missing:
+        for msg in missing:
+            st.error(msg)
+        st.stop()
+
     documents: list[DocumentInput] = []
     for i, upload in enumerate(uploads):
         file_id = f"F{i + 1:03d}"
